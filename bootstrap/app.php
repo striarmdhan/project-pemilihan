@@ -11,10 +11,13 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        // --- 2. TAMBAHKAN BARIS INI (PENTING BUAT VERCEL) ---
+        $middleware->trustProxies(at: '*'); 
+        
         $middleware->alias([
-            'admin' => \App\Http\Middleware\IsAdmin::class, // Pastikan baris ini ada
+            'admin' => \App\Http\Middleware\IsAdmin::class, 
         ]);
     })
-    ->withExceptions(function (Exceptions $exceptions): void {
+    ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();
